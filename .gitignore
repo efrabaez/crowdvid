@@ -1,5 +1,51 @@
+git-credential-manager/
+install-from-source.sh
+
+# Angular ignore
 api/.venv
 api/__pycache__
 api/*.pyc
 api/.env
 api/python3-virtualenv
+
+# Angular ignore
+# Compiled output
+webapp/dist
+webapp/tmp
+webapp/out-tsc
+webapp/bazel-out
+
+# Node
+webapp/node_modules
+webapp/npm-debug.log
+webapp/yarn-error.log
+
+# IDEs and editors
+webapp/.idea/
+webapp/.project
+webapp/.classpath
+webapp/.c9/
+webapp/*.launch
+webapp/.settings/
+webapp/*.sublime-workspace
+
+# Visual Studio Code
+webapp/.vscode/*
+webapp/!.vscode/settings.json
+webapp/!.vscode/tasks.json
+webapp/!.vscode/launch.json
+webapp/!.vscode/extensions.json
+webapp/.history/*
+
+# Miscellaneous
+webapp/.angular/cache
+webapp/.sass-cache/
+webapp/connect.lock
+webapp/coverage
+webapp/libpeerconnection.log
+webapp/testem.log
+webapp/typings
+
+# System files
+webapp/.DS_Store
+webapp/Thumbs.db
