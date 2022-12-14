@@ -1,0 +1,11 @@
+FROM python:3.8-slim-buster
+
+RUN mkdir /api
+COPY requirements.txt /api
+WORKDIR /api
+RUN pip3 install -r requirements.txt
+
+COPY . /api
+
+RUN ["chmod", "u+x", "./entrypoint.sh"]
+CMD ["./entrypoint.sh"]
