@@ -3,8 +3,10 @@ from flask import Flask, render_template, request, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from datetime import datetime
+from datetime import datetime, timedelta
 from dataclasses import dataclass
+from pytz import timezone
+import csv
 
 
 app = Flask(__name__)
@@ -55,20 +57,26 @@ class PlaceModel(db.Model):
     
     def __init__(self, name):
         self.name = name
-
+        
+@dataclass
 class PlaceStatisticsModel(db.Model):
     __tablename__ = "statistics"
 
+    statisticId : int
+    placeId : int
+    datetime : datetime
+    ocupability : int
+    
     statisticId = db.Column(db.Integer, primary_key = True, autoincrement = True)
     placeId = db.Column(db.Integer)
-    ocupability = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+    ocupability = db.Column(db.Integer, default = 0)
+    
 
-    def __init__(self, placeId, ocupability):
+    def __init__(self, placeId, ocupability, datetime):
         self.placeId = placeId
         self.ocupability = ocupability
-
-    def __repr__(self):
-        return f"<Place {self.placeId}, Ocupability {self.ocupability}>"
+        self.datetime = datetime
 
 
 @app.route('/')
@@ -126,8 +134,8 @@ def user_login():
                         name = user.name,
                         lastname = user.lastname,
                         email = user.email,
-                        created_at = user.created_at,
-                        modified_at = user.modified_at,
+                        created_at = str(user.created_at),
+                        modified_at = str(user.modified_at),
                         code = 200,
                         message = "Login Successful")
         else:
@@ -182,18 +190,20 @@ def place_all():
 def statistics_place_register():
     placeId = request.json.get('place_id')
     ocupability = request.json.get('ocupability')
+    datetime = request.json.get('datetime')
     error = None
     message = None 
-    place = PlaceStatisticsModel.query.filter_by(placeId = placeId).first()
+    place = PlaceStatisticsModel.query.filter_by(placeId = placeId, datetime = datetime).first()
     
     if not placeId:
         error = 'Place id is required'
     elif place:
         place.ocupability = ocupability
+        place.datetime = datetime
         db.session.commit()
         message = f"Updated of statistics for place with id {placeId} was successfull"
     else:
-        new_statistic = PlaceStatisticsModel(placeId, ocupability)
+        new_statistic = PlaceStatisticsModel(placeId, ocupability, datetime)
         db.session.add(new_statistic)
         db.session.commit()
         message = f"Creation of statistics for place with id {placeId} was successfull"
@@ -203,10 +213,39 @@ def statistics_place_register():
         
 
     return jsonify(placeId = placeId,
-                   ocupability=ocupability,
+                   ocupability = ocupability,
+                   datetime = datetime,
                     code = 200,
                     message = message)
 
+@app.route('/api/place/ocupability/date',  methods=["POST"])
+def statistics_place_statistics_by_date():      
+        placeId = request.json.get('place_id')
+        date = datetime.strptime(request.json.get('date'), "%m/%d/%Y")
+        startDate = request.json.get('date')
+        endDate = date + timedelta(days=1)
+        error = None
+        statistics = PlaceStatisticsModel.query.filter(
+            PlaceStatisticsModel.placeId == placeId,
+            PlaceStatisticsModel.datetime >= startDate,
+            PlaceStatisticsModel.datetime < endDate,
+        ).all()
+
+        if not placeId:
+            error = 'Place id required.'
+        
+        if statistics == None:
+            error = f"Theres no place with id {placeId}"
+
+        if error:
+            return jsonify(code= 418,
+                            message=error)
+            
+        return jsonify(id_place = placeId,
+                statistics = statistics,       
+                code = 200,
+                message ="Success")
+        
 @app.route('/api/place/ocupability/<placeId>',  methods=["GET"])
 def statistics_place_get(placeId):      
         error = None
@@ -224,8 +263,28 @@ def statistics_place_get(placeId):
             
         return jsonify(id_place = place.placeId,
                 ocupability = place.ocupability,
+                datetime = place.datetime.isoformat(),
                 code = 200,
                 message ="Success")
+
+@app.route('/api/place/ocupability/updateCSVData',  methods=["GET"])
+def upload_CSV_data():
+    data_dict = {}
+    with open(os.path.join(os.path.dirname(__file__), 'data.csv'), encoding = 'utf-8') as csv_file_handler:
+        csv_reader = csv.DictReader(csv_file_handler)
+        for rows in csv_reader:
+            key = rows['Datetime']
+            data_dict[key] = rows
+    
+    for key, value in data_dict.items():
+        upiita = PlaceStatisticsModel(1, int(float(value['In_UPIITA'])), key)
+        goverment = PlaceStatisticsModel(2, int(float(value['In_government'])), key)
+        db.session.add_all([upiita, goverment])
+    db.session.commit()
+    
+    place = PlaceStatisticsModel.query.all()
+            
+    return {'message': 'Healthy', 'data': place}
 
 @app.route('/health')
 def health():
