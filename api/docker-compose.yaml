@@ -23,7 +23,7 @@ services:
         image: jonasal/nginx-certbot:latest
         restart: unless-stopped
         env_file: 
-            - ./nginx-cerbot.env
+            - .env
         ports: 
             - 80:80
             - 443:443
