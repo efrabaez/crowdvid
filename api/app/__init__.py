@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass
 from pytz import timezone
 import csv
-
+import pandas as pd
 
 app = Flask(__name__)
 app.config[
@@ -270,18 +270,14 @@ def statistics_place_get(placeId):
 @app.route('/api/place/ocupability/updateCSVData',  methods=["GET"])
 def upload_CSV_data():
     data_dict = {}
-    with open(os.path.join(os.path.dirname(__file__), 'data.csv'), encoding = 'utf-8') as csv_file_handler:
-        csv_reader = csv.DictReader(csv_file_handler)
-        for rows in csv_reader:
-            key = rows['Datetime']
-            data_dict[key] = rows
-    
-    for key, value in data_dict.items():
-        upiita = PlaceStatisticsModel(1, int(float(value['In_UPIITA'])), key)
-        goverment = PlaceStatisticsModel(2, int(float(value['In_government'])), key)
-        db.session.add_all([upiita, goverment])
-    db.session.commit()
-    
+    data = pd.read_csv('https://iywnhi7b0b.execute-api.us-east-1.amazonaws.com/dev/historicData.csv').fillna(0)
+    for index, row in data.iterrows():
+        place = PlaceStatisticsModel.query.filter_by(datetime = row['Datetime']).first()
+        if place is None:
+            upiita = PlaceStatisticsModel(1, int(row['In_UPIITA']), row['Datetime'])
+            goverment = PlaceStatisticsModel(2, int(row['In_government']), row['Datetime'])
+            db.session.add_all([upiita, goverment])
+            db.session.commit()
     place = PlaceStatisticsModel.query.all()
             
     return {'message': 'Healthy', 'data': place}

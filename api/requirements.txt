@@ -16,3 +16,4 @@ six==1.16.0
 SQLAlchemy==1.4.19
 Werkzeug==2.0.1
 pytz==2020.1
+pandas==1.5.2
