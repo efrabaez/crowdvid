@@ -1,12 +1,136 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="utf-8">
-  <title>Webapp</title>
-  <base href="”/static/”">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-<style>@charset "UTF-8";:root{--bs-blue:#0d6efd;--bs-indigo:#6610f2;--bs-purple:#6f42c1;--bs-pink:#d63384;--bs-red:#dc3545;--bs-orange:#fd7e14;--bs-yellow:#ffc107;--bs-green:#198754;--bs-teal:#20c997;--bs-cyan:#0dcaf0;--bs-black:#000;--bs-white:#fff;--bs-gray:#6c757d;--bs-gray-dark:#343a40;--bs-gray-100:#f8f9fa;--bs-gray-200:#e9ecef;--bs-gray-300:#dee2e6;--bs-gray-400:#ced4da;--bs-gray-500:#adb5bd;--bs-gray-600:#6c757d;--bs-gray-700:#495057;--bs-gray-800:#343a40;--bs-gray-900:#212529;--bs-primary:#0d6efd;--bs-secondary:#6c757d;--bs-success:#198754;--bs-info:#0dcaf0;--bs-warning:#ffc107;--bs-danger:#dc3545;--bs-light:#f8f9fa;--bs-dark:#212529;--bs-primary-rgb:13,110,253;--bs-secondary-rgb:108,117,125;--bs-success-rgb:25,135,84;--bs-info-rgb:13,202,240;--bs-warning-rgb:255,193,7;--bs-danger-rgb:220,53,69;--bs-light-rgb:248,249,250;--bs-dark-rgb:33,37,41;--bs-white-rgb:255,255,255;--bs-black-rgb:0,0,0;--bs-body-color-rgb:33,37,41;--bs-body-bg-rgb:255,255,255;--bs-font-sans-serif:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";--bs-font-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--bs-gradient:linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));--bs-body-font-family:var(--bs-font-sans-serif);--bs-body-font-size:1rem;--bs-body-font-weight:400;--bs-body-line-height:1.5;--bs-body-color:#212529;--bs-body-bg:#fff;--bs-border-width:1px;--bs-border-style:solid;--bs-border-color:#dee2e6;--bs-border-color-translucent:rgba(0, 0, 0, .175);--bs-border-radius:.375rem;--bs-border-radius-sm:.25rem;--bs-border-radius-lg:.5rem;--bs-border-radius-xl:1rem;--bs-border-radius-2xl:2rem;--bs-border-radius-pill:50rem;--bs-link-color:#0d6efd;--bs-link-hover-color:#0a58ca;--bs-code-color:#d63384;--bs-highlight-bg:#fff3cd}*,:after,:before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:var(--bs-body-font-family);font-size:var(--bs-body-font-size);font-weight:var(--bs-body-font-weight);line-height:var(--bs-body-line-height);color:var(--bs-body-color);text-align:var(--bs-body-text-align);background-color:var(--bs-body-bg);-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}</style><link rel="stylesheet" href="styles.51e3e0b5e988d7d4.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.51e3e0b5e988d7d4.css"></noscript></head>
-<body>
-  <app-root></app-root>
-<script src="runtime.2ab56e4f659c1314.js" type="module"></script><script src="polyfills.93764f8fd45379ba.js" type="module"></script><script src="scripts.fdb5b7cdad56d7c1.js" defer></script><script src="main.46f0705a98f816b9.js" type="module"></script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>Crowdvid</title>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href={{ url_for('static',filename= 'styles/main.css') }}>
+    <!-- Custom styles for this template -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/starter-template/">
+    <link rel="stylesheet" href={{ url_for('static',filename= 'dist/css/bootstrap.min.css') }}>
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <header class="site-header sticky-top py-1 bg-success p-2 text-dark bg-opacity-50">
+      <nav class="container d-flex flex-column flex-md-row justify-content-start">
+        <h4 class="text-light p-2" style="text-decoration: none;">Crowdvid</h4>
+      </nav>
+    </header>
 
-</body></html>
+    <main>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Crowdvid</h1>
+          <p class="lead fw-normal">La aplicación para predicir la ocupabilidad de espacios mediante Crowdsensing</p>
+          <a class="btn btn-outline-success" href="#">¡Llega pronto la tienda de tu dispositivo preferido!</a>
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      </div>
+
+
+      <div class="p-4 mb-3 bg-light rounded">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              <h4 class="fst-italic">¿Qué es el Crowdsensing?</h4>
+              <p class="mb-0" style="text-align: justify;">
+                El crowdsensing es un paradigma para utilizar diversos dispositivos (como sensores, teléfonos y relojes inteligentes, etc.) para recolectar, almacenar y transmitir información local para el análisis, monitoreo y procesamiento de datos en la toma de decisiones. Dentro de los problemas que solventa este paradigma son sistemas relacionados con planeación de tráfico, monitoreo ambiente, seguridad y recomendaciones sociales.
+              </p>
+            </div>
+            <div class="col-lg-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="people-circle" viewBox="0 0 16 16" style="color: white;">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </symbol>
+        <symbol id="calendar3" viewBox="0 0 16 16" style="color: white;">
+          <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+          <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </symbol>
+        <symbol id="home" viewBox="0 0 16 16" style="color: white;">
+          <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+        </symbol>
+        <symbol id="speedometer" viewBox="0 0 16 16" style="color: white;">
+          <path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2zM3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+          <path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.945 11.945 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0z"/>
+        </symbol>
+      </svg>
+      
+        <div class="container px-4 py-5">
+          <h2 class="pb-2 border-bottom">Nuestra aplicación</h2>
+      
+          <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+            <div class="col d-flex flex-column align-items-start gap-2">
+              <h3 class="fw-bold">El tráfico de tu escuela al alcance de tu mano</h3>
+              <p class="text-muted">Visualiza de forma rápida y sencilla el tráfico histórico, actual y futuro en la UPIITA.</p>
+              <a href="#" class="btn btn-success btn-lg">¡Descargala ya!</a>
+            </div>
+      
+            <div class="col">
+              <div class="row row-cols-1 row-cols-sm-2 g-4">
+                <div class="col d-flex flex-column gap-2">
+                  <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-success p-2 text-dark bg-opacity-50 fs-4 rounded-3">
+                    <svg class="bi" width="1em" height="1em">
+                      <use xlink:href="#people-circle" />
+                    </svg>
+                  </div>
+                  <h4 class="fw-semibold mb-0">Inicio de sesión</h4>
+                  <p class="text-muted">El registro es gratis mediante un correo electrónico.</p>
+                </div>
+      
+                <div class="col d-flex flex-column gap-2">
+                  <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-success p-2 text-dark bg-opacity-50 fs-4 rounded-3">
+                    <svg class="bi" width="1em" height="1em">
+                      <use xlink:href="#home" />
+                    </svg>
+                  </div>
+                  <h4 class="fw-semibold mb-0">Distintos sitios</h4>
+                  <p class="text-muted">Escoge el sitio de tu preferencia para visualizar su información.</p>
+                </div>
+      
+                <div class="col d-flex flex-column gap-2">
+                  <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-success p-2 text-dark bg-opacity-50 fs-4 rounded-3">
+                    <svg class="bi" width="1em" height="1em">
+                      <use xlink:href="#speedometer" />
+                    </svg>
+                  </div>
+                  <h4 class="fw-semibold mb-0">Información actual</h4>
+                  <p class="text-muted">Métricas obtenidas mediante sensores no invasivos.</p>
+                </div>
+      
+                <div class="col d-flex flex-column gap-2">
+                  <div class="feature-icon-small d-inline-flex align-items-center justify-content-center bg-success p-2 text-dark bg-opacity-50 fs-4 rounded-3">
+                    <svg class="bi" width="1em" height="1em">
+                      <use xlink:href="#calendar3" />
+                    </svg>
+                  </div>
+                  <h4 class="fw-semibold mb-0">Predicciones con Machine Learning</h4>
+                  <p class="text-muted">Previsión sobre la ocupación del lugar.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+
+    <footer class="container py-2">
+      <div class="row">
+        <div class="col-12 col-md">
+          <small class="d-block mb-3 text-muted">&copy; Crowdvid 2023</small>
+        </div>
+      </div>
+    </footer>
+    <script src="../static/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

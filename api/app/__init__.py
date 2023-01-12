@@ -81,7 +81,9 @@ class PlaceStatisticsModel(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',
+                           title = "Crowdvid",
+                           url = os.getenv("URL"))
 
 #User enpoints
 @app.route('/api/users/register', methods = ('GET', 'POST'))
