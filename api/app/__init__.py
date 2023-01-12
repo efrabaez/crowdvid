@@ -269,7 +269,6 @@ def statistics_place_get(placeId):
 
 @app.route('/api/place/ocupability/updateCSVData',  methods=["GET"])
 def upload_CSV_data():
-    data_dict = {}
     data = pd.read_csv('https://iywnhi7b0b.execute-api.us-east-1.amazonaws.com/dev/historicData.csv').fillna(0)
     for index, row in data.iterrows():
         place = PlaceStatisticsModel.query.filter_by(datetime = row['Datetime']).first()
@@ -278,6 +277,22 @@ def upload_CSV_data():
             goverment = PlaceStatisticsModel(2, int(row['In_government']), row['Datetime'])
             db.session.add_all([upiita, goverment])
             db.session.commit()
+    place = PlaceStatisticsModel.query.all()
+            
+    return {'message': 'Healthy', 'data': place}
+
+@app.route('/api/place/ocupability/updateSinteticCSVData',  methods=["GET"])
+def upload_sintetic_CSV_data():
+    statisicsObjetc = []
+    data = pd.read_csv('https://iywnhi7b0b.execute-api.us-east-1.amazonaws.com/dev/historicDataSyn.csv').fillna(0)
+    for index, row in data.iterrows():
+        place = PlaceStatisticsModel.query.filter_by(datetime = row['date'], placeId = 3).first()
+        if place is None:
+            gym = PlaceStatisticsModel(3, int(row['In_Gym']), row['date'])
+            statisicsObjetc.append(gym)
+
+    db.session.bulk_save_objects(statisicsObjetc)
+    db.session.commit()
     place = PlaceStatisticsModel.query.all()
             
     return {'message': 'Healthy', 'data': place}
